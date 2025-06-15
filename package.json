@@ -11,12 +11,15 @@
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
     "type-check": "tsc --noEmit",
     "worker:dev": "wrangler dev",
-    "worker:deploy": "wrangler deploy"
+    "worker:deploy": "wrangler deploy",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
-    "solid-js": "^1.9.7",
     "@triplit/client": "^1.0.44",
-    "@triplit/db": "^1.1.5"
+    "@triplit/db": "^1.1.5",
+    "prettier": "^3.5.3",
+    "solid-js": "^1.9.7"
   },
   "devDependencies": {
     "@types/node": "^24.0.1",
