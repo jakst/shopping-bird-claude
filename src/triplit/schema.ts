@@ -10,4 +10,4 @@ export const schema = {
       updated_at: S.Date({ default: S.Default.now() }),
     }),
   },
-} satisfies S.Schema
+}

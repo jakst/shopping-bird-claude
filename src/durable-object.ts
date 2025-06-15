@@ -117,7 +117,7 @@ export class ShoppingListDurableObject {
   private async loadItems(): Promise<void> {
     if (this.items.size === 0) {
       const itemsMap = await this.storage.list({ prefix: "item:" })
-      for (const [key, item] of itemsMap) {
+      for (const [, item] of itemsMap) {
         this.items.set((item as ShoppingItem).id, item as ShoppingItem)
       }
     }

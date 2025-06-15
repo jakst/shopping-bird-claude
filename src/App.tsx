@@ -1,37 +1,13 @@
 import { Component, createSignal, createMemo, For } from "solid-js"
-import { TriplitClient } from "@triplit/client"
-import { Schema as S } from "@triplit/db"
 import { useQuery } from "@triplit/solid"
-
-const schema = {
-  shopping_items: {
-    schema: S.Schema({
-      id: S.Id(),
-      text: S.String(),
-      completed: S.Boolean({ default: false }),
-      created_at: S.Date({ default: S.Default.now() }),
-    }),
-  },
-}
-
-interface ShoppingItem {
-  id: string
-  text: string
-  completed: boolean
-  created_at: Date
-}
-
-const client = new TriplitClient({
-  schema,
-  storage: 'indexeddb',
-})
+import { client } from "./triplit/client"
 
 const App: Component = () => {
   const [newItem, setNewItem] = createSignal("")
   
   const { results: items, error } = useQuery(
     client,
-    client.query('shopping_items').order('created_at', 'DESC').build()
+    client.query('shopping_items')
   )
 
   const itemsArray = createMemo(() => {
