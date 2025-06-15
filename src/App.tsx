@@ -1,4 +1,4 @@
-import { Component, createSignal, For } from "solid-js"
+import { Component, createSignal, createMemo, For } from "solid-js"
 import { TriplitClient } from "@triplit/client"
 import { Schema as S } from "@triplit/db"
 import { useQuery } from "@triplit/solid"
@@ -34,6 +34,11 @@ const App: Component = () => {
     client.query('shopping_items').order('created_at', 'DESC').build()
   )
 
+  const itemsArray = createMemo(() => {
+    const itemsMap = items()
+    return itemsMap ? Array.from(itemsMap.values()) : []
+  })
+
   const addItem = async () => {
     const text = newItem().trim()
     if (text) {
@@ -51,8 +56,7 @@ const App: Component = () => {
 
   const toggleItem = async (id: string) => {
     try {
-      const itemsArray = items() ? Array.from(items()!.values()) : []
-      const item = itemsArray.find(item => item.id === id)
+      const item = itemsArray().find(item => item.id === id)
       if (item) {
         await client.update('shopping_items', id, {
           completed: !item.completed,
@@ -95,7 +99,7 @@ const App: Component = () => {
           </div>
 
           <div class="space-y-2">
-            <For each={items() ? Array.from(items()!.values()) : []}>
+            <For each={itemsArray()}>
               {(item) => (
                 <div class="flex items-center gap-3 p-2 rounded-md hover:bg-gray-50">
                   <input
@@ -114,12 +118,12 @@ const App: Component = () => {
               )}
             </For>
 
-            {(!items() || Array.from(items()!.values()).length === 0) && (
+            {itemsArray().length === 0 && (
               <p class="text-gray-500 text-center py-8">No items yet. Add your first shopping item above!</p>
             )}
 
             {error() && (
-              <p class="text-red-500 text-center py-4">Error loading items: {error()?.message}</p>
+              <p class="text-red-500 text-center py-4">Error loading items: {String(error())}</p>
             )}
           </div>
         </div>
