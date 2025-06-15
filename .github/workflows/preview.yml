@@ -23,14 +23,14 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: deploy --env preview --name shopping-bird-pr-${{ github.event.number }}
+          command: deploy --name shopping-bird-pr-${{ github.event.number }}
       - name: Comment PR
         uses: actions/github-script@v7
         with:
           script: |
             const prNumber = context.payload.pull_request.number;
-            const workerUrl = `https://shopping-bird-pr-${prNumber}.your-subdomain.workers.dev`;
-            
+            const workerUrl = `https://shopping-bird-pr-${prNumber}.workers.dev`;
+
             github.rest.issues.createComment({
               issue_number: prNumber,
               owner: context.repo.owner,
