@@ -23,7 +23,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: deploy --name shopping-bird-pr-${{ github.event.number }}
+          command: deploy --name shopping-bird-pr-${{ github.event.number }} --assets dist
       - name: Comment PR
         uses: actions/github-script@v7
         with:
