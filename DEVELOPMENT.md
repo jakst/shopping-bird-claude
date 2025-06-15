@@ -4,18 +4,20 @@ This shopping list application is built with Solid.js, Vite, Tailwind CSS, Cloud
 
 ## Prerequisites
 
-- Node.js 18+ 
-- npm or yarn
+- Node.js 24+
+- Bun
 - Cloudflare account (for deployment)
 
 ## Installation
 
 1. Install dependencies:
+
 ```bash
-npm install
+bun install
 ```
 
 2. Copy environment variables:
+
 ```bash
 cp .env.example .env
 ```
@@ -25,40 +27,49 @@ cp .env.example .env
 ## Development
 
 ### Frontend Development
+
 Start the frontend development server:
+
 ```bash
-npm run dev
+bun run dev
 ```
 
-### Backend Development  
+### Backend Development
+
 Start the Cloudflare Workers development server:
+
 ```bash
-npm run worker:dev
+bun run worker:dev
 ```
 
 ### Code Quality
+
 Run linting:
+
 ```bash
-npm run lint
+bun run lint
 ```
 
 Run type checking:
+
 ```bash
-npm run type-check
+bun run type-check
 ```
 
 ## Building
 
 Build the frontend:
+
 ```bash
-npm run build
+bun run build
 ```
 
 ## Deployment
 
 Deploy the Cloudflare Worker:
+
 ```bash
-npm run worker:deploy
+bun run worker:deploy
 ```
 
 ## Architecture
@@ -66,13 +77,4 @@ npm run worker:deploy
 - **Frontend**: Solid.js with Vite and Tailwind CSS
 - **Backend**: Cloudflare Durable Objects for persistent state
 - **Sync**: Triplit for real-time synchronization across devices
-- **Offline**: IndexedDB for local storage when offline
-
-## Features
-
-- ✅ Offline-first shopping list
-- ✅ Real-time sync across devices  
-- ✅ Integration with Google Keep (planned)
-- ✅ Voice control via Google Assistant (planned)
-- ✅ Responsive design
-- ✅ TypeScript support
+- **Offline**: Triplit IndexedDB integration for local storage when offline
