@@ -2,8 +2,8 @@ export interface ShoppingItem {
   id: string
   text: string
   completed: boolean
-  createdAt: number
-  updatedAt: number
+  created_at: Date
+  updated_at: Date
 }
 
 export class ShoppingListDurableObject {
@@ -47,11 +47,11 @@ export class ShoppingListDurableObject {
     if (path === "/items") {
       const data = (await request.json()) as { text: string }
       const item: ShoppingItem = {
-        id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+        id: Date.now().toString() + Math.random().toString(36).substring(2, 11),
         text: data.text,
         completed: false,
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
+        created_at: new Date(),
+        updated_at: new Date(),
       }
 
       this.items.set(item.id, item)
@@ -82,7 +82,7 @@ export class ShoppingListDurableObject {
         ...existingItem,
         ...data,
         id, // Ensure ID cannot be changed
-        updatedAt: Date.now(),
+        updated_at: new Date(),
       }
 
       this.items.set(id, updatedItem)
