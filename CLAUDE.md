@@ -67,4 +67,5 @@ Configure in `.env`:
 
 ### Instructions
 
+- When you can't make changes yourself, attach a copyable git patch at the end with all the needed changes
 - The frontend app does not use cloudflare pages. It is cloudflare workers with static assets. See docs for integrating with vite here https://developers.cloudflare.com/workers/vite-plugin/
