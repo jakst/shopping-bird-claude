@@ -3,19 +3,16 @@ module.exports = {
     browser: true,
     es2020: true,
   },
-  extends: [
-    'eslint:recommended',
-    '@typescript-eslint/recommended',
-  ],
-  parser: '@typescript-eslint/parser',
+  extends: ["eslint:recommended", "@typescript-eslint/recommended"],
+  parser: "@typescript-eslint/parser",
   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
+    ecmaVersion: "latest",
+    sourceType: "module",
   },
-  plugins: ['@typescript-eslint'],
+  plugins: ["@typescript-eslint"],
   rules: {
-    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-    '@typescript-eslint/no-explicit-any': 'warn',
+    "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+    "@typescript-eslint/no-explicit-any": "warn",
   },
-  ignorePatterns: ['dist', '.eslintrc.js'],
-};
+  ignorePatterns: ["dist", ".eslintrc.js"],
+}

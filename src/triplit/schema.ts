@@ -1,4 +1,4 @@
-import { Schema as S } from '@triplit/db';
+import { Schema as S } from "@triplit/db"
 
 export const schema = {
   shopping_items: {
@@ -10,4 +10,4 @@ export const schema = {
       updated_at: S.Date({ default: S.Default.now() }),
     }),
   },
-} satisfies S.Schema;
+} satisfies S.Schema
