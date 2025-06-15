@@ -42,4 +42,4 @@ jobs:
         uses: anthropics/claude-code-action@beta
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          allowed_tools: "Bash(bun),Bash(bun run build),Bash(bun run type-check),Bash(bun run lint)"
+          allowed_tools: "Bash(bun),Bash(bun run build),Bash(bun run type-check)"

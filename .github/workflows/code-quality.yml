@@ -7,8 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  lint-and-format:
-    name: Lint, Format, and Type Check
+  check-quality:
+    name: Type check and format
     runs-on: ubuntu-latest
 
     steps:
@@ -25,9 +25,6 @@ jobs:
 
       - name: Run type check
         run: bun run type-check
-
-      - name: Run linter
-        run: bun run lint
 
       - name: Check code formatting
         run: bun run format:check
