@@ -6,6 +6,7 @@
       "dependencies": {
         "@triplit/client": "^1.0.44",
         "@triplit/db": "^1.1.5",
+        "@triplit/solid": "^1.0.28",
         "prettier": "^3.5.3",
         "solid-js": "^1.9.7",
       },
@@ -290,6 +291,8 @@
     "@triplit/db": ["@triplit/db@1.1.5", "", { "dependencies": { "@triplit/logger": "^0.0.3", "core-js": "^3.41.0", "elen": "^1.0.10", "nanoid": "^5.1.0", "sorted-btree": "^1.8.1", "web-worker": "^1.5.0" }, "peerDependencies": { "better-sqlite3": "*", "expo-sqlite": "*", "lmdb": "*", "uuidv7": "*" }, "optionalPeers": ["better-sqlite3", "expo-sqlite", "lmdb", "uuidv7"] }, "sha512-6eEUK3f7JBRwr2Fjkat37Nz9aMJrBnXfA7HNdVB28bFUVI5bYPGa4UBeyYFJWz9B3cVvIiakvRF+2F2n7PaDdA=="],
 
     "@triplit/logger": ["@triplit/logger@0.0.3", "", { "peerDependencies": { "typescript": "^5.0.0" } }, "sha512-hHcoD6/BsNwBtXjEp8Wiy0/YA2SqIYXd1nMukEPBmFkjT7Cd30eqtsBRT0NRq2mIFX2mr5h9JaO27zDToKnwdw=="],
+
+    "@triplit/solid": ["@triplit/solid@1.0.28", "", { "peerDependencies": { "@triplit/client": "^1.0.44", "solid-js": "*" } }, "sha512-ztROBGqZ2mOUtb50DrxmsQFJva4zdSPD60nwOQpwtV4js8J2SzvTukC9Dz8o+0erFrBjKZIrvSOm0ptCA8wbeQ=="],
 
     "@types/babel__core": ["@types/babel__core@7.20.5", "", { "dependencies": { "@babel/parser": "^7.20.7", "@babel/types": "^7.20.7", "@types/babel__generator": "*", "@types/babel__template": "*", "@types/babel__traverse": "*" } }, "sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA=="],
 
