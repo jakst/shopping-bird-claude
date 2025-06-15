@@ -99,7 +99,7 @@ const App: Component = () => {
             )}
 
             {error() && (
-              <p class="text-red-500 text-center py-4">Error loading items: {String(error())}</p>
+              <p class="text-red-500 text-center py-4">Error loading items: {error()?.message || 'Unknown error'}</p>
             )}
           </div>
         </div>
