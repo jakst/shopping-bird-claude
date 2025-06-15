@@ -56,6 +56,18 @@ Run type checking:
 bun run type-check
 ```
 
+Check formatting
+
+```bash
+bun run format:check
+```
+
+Fix formatting
+
+```bash
+bun run format
+```
+
 ## Building
 
 Build the frontend:
