@@ -1,36 +1,74 @@
 import { Component, createSignal, For } from "solid-js"
+import { TriplitClient } from "@triplit/client"
+import { Schema as S } from "@triplit/db"
+import { useQuery } from "@triplit/solid"
+
+const schema = {
+  shopping_items: {
+    schema: S.Schema({
+      id: S.Id(),
+      text: S.String(),
+      completed: S.Boolean({ default: false }),
+      created_at: S.Date({ default: S.Default.now() }),
+    }),
+  },
+}
 
 interface ShoppingItem {
   id: string
   text: string
   completed: boolean
+  created_at: Date
 }
 
-const App: Component = () => {
-  const [items, setItems] = createSignal<ShoppingItem[]>([])
-  const [newItem, setNewItem] = createSignal("")
+const client = new TriplitClient({
+  schema,
+  storage: 'indexeddb',
+})
 
-  const addItem = () => {
+const App: Component = () => {
+  const [newItem, setNewItem] = createSignal("")
+  
+  const { results: items, error } = useQuery(
+    client,
+    client.query('shopping_items').order('created_at', 'DESC').build()
+  )
+
+  const addItem = async () => {
     const text = newItem().trim()
     if (text) {
-      setItems([
-        ...items(),
-        {
-          id: Date.now().toString(),
+      try {
+        await client.insert('shopping_items', {
           text,
           completed: false,
-        },
-      ])
-      setNewItem("")
+        })
+        setNewItem("")
+      } catch (error) {
+        console.error('Failed to add item:', error)
+      }
     }
   }
 
-  const toggleItem = (id: string) => {
-    setItems(items().map((item) => (item.id === id ? { ...item, completed: !item.completed } : item)))
+  const toggleItem = async (id: string) => {
+    try {
+      const itemsArray = items() ? Array.from(items()!.values()) : []
+      const item = itemsArray.find(item => item.id === id)
+      if (item) {
+        await client.update('shopping_items', id, {
+          completed: !item.completed,
+        })
+      }
+    } catch (error) {
+      console.error('Failed to toggle item:', error)
+    }
   }
 
-  const removeItem = (id: string) => {
-    setItems(items().filter((item) => item.id !== id))
+  const removeItem = async (id: string) => {
+    try {
+      await client.delete('shopping_items', id)
+    } catch (error) {
+      console.error('Failed to remove item:', error)
+    }
   }
 
   return (
@@ -57,7 +95,7 @@ const App: Component = () => {
           </div>
 
           <div class="space-y-2">
-            <For each={items()}>
+            <For each={items() ? Array.from(items()!.values()) : []}>
               {(item) => (
                 <div class="flex items-center gap-3 p-2 rounded-md hover:bg-gray-50">
                   <input
@@ -76,8 +114,12 @@ const App: Component = () => {
               )}
             </For>
 
-            {items().length === 0 && (
+            {(!items() || Array.from(items()!.values()).length === 0) && (
               <p class="text-gray-500 text-center py-8">No items yet. Add your first shopping item above!</p>
+            )}
+
+            {error() && (
+              <p class="text-red-500 text-center py-4">Error loading items: {error()?.message}</p>
             )}
           </div>
         </div>

@@ -18,6 +18,7 @@
   "dependencies": {
     "@triplit/client": "^1.0.44",
     "@triplit/db": "^1.1.5",
+    "@triplit/solid": "^1.0.44",
     "prettier": "^3.5.3",
     "solid-js": "^1.9.7"
   },
