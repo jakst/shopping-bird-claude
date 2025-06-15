@@ -1,36 +1,54 @@
-import { Component, createSignal, For } from "solid-js"
-
-interface ShoppingItem {
-  id: string
-  text: string
-  completed: boolean
-}
+import { Component, createSignal, createMemo, For } from "solid-js"
+import { useQuery } from "@triplit/solid"
+import { client } from "./triplit/client"
 
 const App: Component = () => {
-  const [items, setItems] = createSignal<ShoppingItem[]>([])
   const [newItem, setNewItem] = createSignal("")
+  
+  const { results: items, error } = useQuery(
+    client,
+    client.query('shopping_items')
+  )
 
-  const addItem = () => {
+  const itemsArray = createMemo(() => {
+    const itemsMap = items()
+    return itemsMap ? Array.from(itemsMap.values()) : []
+  })
+
+  const addItem = async () => {
     const text = newItem().trim()
     if (text) {
-      setItems([
-        ...items(),
-        {
-          id: Date.now().toString(),
+      try {
+        await client.insert('shopping_items', {
           text,
           completed: false,
-        },
-      ])
-      setNewItem("")
+        })
+        setNewItem("")
+      } catch (error) {
+        console.error('Failed to add item:', error)
+      }
     }
   }
 
-  const toggleItem = (id: string) => {
-    setItems(items().map((item) => (item.id === id ? { ...item, completed: !item.completed } : item)))
+  const toggleItem = async (id: string) => {
+    try {
+      const item = itemsArray().find(item => item.id === id)
+      if (item) {
+        await client.update('shopping_items', id, {
+          completed: !item.completed,
+        })
+      }
+    } catch (error) {
+      console.error('Failed to toggle item:', error)
+    }
   }
 
-  const removeItem = (id: string) => {
-    setItems(items().filter((item) => item.id !== id))
+  const removeItem = async (id: string) => {
+    try {
+      await client.delete('shopping_items', id)
+    } catch (error) {
+      console.error('Failed to remove item:', error)
+    }
   }
 
   return (
@@ -57,7 +75,7 @@ const App: Component = () => {
           </div>
 
           <div class="space-y-2">
-            <For each={items()}>
+            <For each={itemsArray()}>
               {(item) => (
                 <div class="flex items-center gap-3 p-2 rounded-md hover:bg-gray-50">
                   <input
@@ -76,8 +94,12 @@ const App: Component = () => {
               )}
             </For>
 
-            {items().length === 0 && (
+            {itemsArray().length === 0 && (
               <p class="text-gray-500 text-center py-8">No items yet. Add your first shopping item above!</p>
+            )}
+
+            {error() && (
+              <p class="text-red-500 text-center py-4">Error loading items: {String(error())}</p>
             )}
           </div>
         </div>
