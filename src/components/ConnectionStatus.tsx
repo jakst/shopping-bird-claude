@@ -1,36 +1,23 @@
-import { Component, createSignal, createEffect, onCleanup } from "solid-js"
+import { Component } from "solid-js"
+import { useConnectionStatus } from "@triplit/solid"
+import type { TriplitClient } from "@triplit/client"
+import { client } from "../triplit/client"
 
 export const ConnectionStatus: Component = () => {
-  const [isOnline, setIsOnline] = createSignal(navigator.onLine)
-
-  createEffect(() => {
-    // Update connection status based on browser's online/offline events
-    const handleOnline = () => setIsOnline(true)
-    const handleOffline = () => setIsOnline(false)
-
-    // Set initial state
-    setIsOnline(navigator.onLine)
-
-    // Listen for online/offline events
-    window.addEventListener("online", handleOnline)
-    window.addEventListener("offline", handleOffline)
-
-    onCleanup(() => {
-      window.removeEventListener("online", handleOnline)
-      window.removeEventListener("offline", handleOffline)
-    })
-  })
+  // Type assertion needed because useConnectionStatus expects TriplitClient<Models>
+  // but our client has a more specific schema type
+  const { status } = useConnectionStatus(client as unknown as TriplitClient)
 
   const getStatusIcon = () => {
-    return isOnline() ? "🟢" : "🔴"
+    return status() === "OPEN" ? "🟢" : "🔴"
   }
 
   const getStatusText = () => {
-    return isOnline() ? "Online" : "Offline"
+    return status() === "OPEN" ? "Online" : "Offline"
   }
 
   const getStatusColor = () => {
-    return isOnline() ? "text-green-600" : "text-red-600"
+    return status() === "OPEN" ? "text-green-600" : "text-red-600"
   }
 
   return (
