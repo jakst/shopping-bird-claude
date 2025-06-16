@@ -1,6 +1,7 @@
 import { Component, createSignal, createMemo, For } from "solid-js"
 import { useQuery } from "@triplit/solid"
 import { client } from "./triplit/client"
+import { ConnectionStatus } from "./components/ConnectionStatus"
 
 const App: Component = () => {
   const [newItem, setNewItem] = createSignal("")
@@ -51,7 +52,10 @@ const App: Component = () => {
   return (
     <div class="min-h-screen bg-gray-50">
       <div class="max-w-md mx-auto py-8 px-4">
-        <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">🐦 Shopping Bird</h1>
+        <div class="text-center mb-8">
+          <h1 class="text-3xl font-bold text-gray-800 mb-2">🐦 Shopping Bird</h1>
+          <ConnectionStatus />
+        </div>
 
         <div class="bg-white rounded-lg shadow-md p-6 mb-6">
           <div class="flex gap-2 mb-4">
