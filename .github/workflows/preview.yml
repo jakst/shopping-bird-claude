@@ -11,6 +11,9 @@ jobs:
     if: github.event.action != 'closed'
     runs-on: ubuntu-latest
     name: Deploy Preview
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
@@ -42,6 +45,8 @@ jobs:
     if: github.event.action == 'closed'
     runs-on: ubuntu-latest
     name: Cleanup Preview
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - name: Delete preview deployment
