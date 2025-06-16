@@ -1,7 +1,7 @@
 export { ShoppingListDurableObject } from "./durable-object"
 
 export interface Env {
-  SHOPPING_LIST: DurableObjectNamespace<ShoppingListDurableObject>
+  SHOPPING_LIST: DurableObjectNamespace
   ASSETS: Fetcher
 }
 
