@@ -73,4 +73,4 @@ Configure in `.env`:
 ### Code Style Guidelines
 
 - **Data Attributes for Styling**: Don't use conditional expressions when applying Tailwind classes. Instead, add a `data-` attribute to the HTML element and target that for styling using Tailwind's data attribute selectors (e.g., `data-[state=open]:bg-blue-500`)
-- **Inline JSX Data**: Don't create wrapper functions for rendered data. Inline the logic directly in JSX expressions
+- **Inline JSX Data**: Don't create wrapper functions for rendered data, unless it's reused in mulitple places. Prefer inlining the logic directly in JSX expressions
