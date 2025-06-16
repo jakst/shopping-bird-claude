@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": ["Bash(bun *)"]
+  },
+  "env": {
+    "NODE_ENV": "development"
+  }
+}
