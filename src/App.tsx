@@ -4,11 +4,8 @@ import { client } from "./triplit/client"
 
 const App: Component = () => {
   const [newItem, setNewItem] = createSignal("")
-  
-  const { results: items, error } = useQuery(
-    client,
-    client.query('shopping_items')
-  )
+
+  const { results: items, error } = useQuery(client, client.query("shopping_items"))
 
   const itemsArray = createMemo(() => {
     const itemsMap = items()
@@ -19,35 +16,35 @@ const App: Component = () => {
     const text = newItem().trim()
     if (text) {
       try {
-        await client.insert('shopping_items', {
+        await client.insert("shopping_items", {
           text,
           completed: false,
         })
         setNewItem("")
       } catch (error) {
-        console.error('Failed to add item:', error)
+        console.error("Failed to add item:", error)
       }
     }
   }
 
   const toggleItem = async (id: string) => {
     try {
-      const item = itemsArray().find(item => item.id === id)
+      const item = itemsArray().find((item) => item.id === id)
       if (item) {
-        await client.update('shopping_items', id, {
+        await client.update("shopping_items", id, {
           completed: !item.completed,
         })
       }
     } catch (error) {
-      console.error('Failed to toggle item:', error)
+      console.error("Failed to toggle item:", error)
     }
   }
 
   const removeItem = async (id: string) => {
     try {
-      await client.delete('shopping_items', id)
+      await client.delete("shopping_items", id)
     } catch (error) {
-      console.error('Failed to remove item:', error)
+      console.error("Failed to remove item:", error)
     }
   }
 
@@ -99,7 +96,7 @@ const App: Component = () => {
             )}
 
             {error() && (
-              <p class="text-red-500 text-center py-4">Error loading items: {error()?.message || 'Unknown error'}</p>
+              <p class="text-red-500 text-center py-4">Error loading items: {error()?.message || "Unknown error"}</p>
             )}
           </div>
         </div>
