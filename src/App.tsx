@@ -6,7 +6,7 @@ import { ConnectionStatus } from "./components/ConnectionStatus"
 const App: Component = () => {
   const [newItem, setNewItem] = createSignal("")
 
-  const { results: items, error } = useQuery(client, client.query("shopping_items"))
+  const { results: items, error, fetchingLocal } = useQuery(client, client.query("shopping_items"))
 
   const itemsArray = createMemo(() => {
     const itemsMap = items()
@@ -57,7 +57,10 @@ const App: Component = () => {
           <ConnectionStatus />
         </div>
 
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <div
+          class="bg-white rounded-lg shadow-md p-6 mb-6 transition-opacity duration-200 data-[loading=true]:opacity-0 data-[loading=false]:opacity-100"
+          data-loading={fetchingLocal()}
+        >
           <div class="flex gap-2 mb-4">
             <input
               type="text"
@@ -105,7 +108,10 @@ const App: Component = () => {
           </div>
         </div>
 
-        <div class="text-center text-sm text-gray-500">
+        <div
+          class="text-center text-sm text-gray-500 transition-opacity duration-200 data-[loading=true]:opacity-0 data-[loading=false]:opacity-100"
+          data-loading={fetchingLocal()}
+        >
           <p>Offline first • Syncs with Google Keep</p>
         </div>
       </div>
