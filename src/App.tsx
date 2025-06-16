@@ -5,7 +5,7 @@ import { client } from "./triplit/client"
 const App: Component = () => {
   const [newItem, setNewItem] = createSignal("")
 
-  const { results: items, error, fetching } = useQuery(client, client.query("shopping_items"))
+  const { results: items, error, fetchingLocal } = useQuery(client, client.query("shopping_items"))
 
   const itemsArray = createMemo(() => {
     const itemsMap = items()
@@ -91,7 +91,7 @@ const App: Component = () => {
               )}
             </For>
 
-            {!fetching() && itemsArray().length === 0 && (
+            {!fetchingLocal() && itemsArray().length === 0 && (
               <p class="text-gray-500 text-center py-8">No items yet. Add your first shopping item above!</p>
             )}
 
