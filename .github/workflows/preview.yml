@@ -29,7 +29,7 @@ jobs:
         with:
           script: |
             const prNumber = context.payload.pull_request.number;
-            const workerUrl = `https://shopping-bird-pr-${prNumber}.workers.dev`;
+            const workerUrl = `https://shopping-bird-pr-${prNumber}.jakst.workers.dev`;
 
             github.rest.issues.createComment({
               issue_number: prNumber,
