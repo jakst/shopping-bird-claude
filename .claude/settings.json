@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": ["Bash"]
+  },
+  "env": {
+    "NODE_ENV": "development"
+  }
+}

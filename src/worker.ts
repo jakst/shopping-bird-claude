@@ -2,6 +2,7 @@ export { ShoppingListDurableObject } from "./durable-object"
 
 export interface Env {
   SHOPPING_LIST: DurableObjectNamespace
+  ASSETS: Fetcher
 }
 
 export default {
@@ -35,7 +36,7 @@ export default {
       return corsResponse
     }
 
-    // Serve static files (in production, this would be handled differently)
-    return new Response("Not found", { status: 404 })
+    // Serve static assets
+    return env.ASSETS.fetch(request)
   },
 }
