@@ -53,9 +53,7 @@ const App: Component = () => {
       <div class="max-w-md mx-auto py-8 px-4">
         <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">🐦 Shopping Bird</h1>
 
-        {!fetchingLocal() && (
-          <>
-            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <div class={`bg-white rounded-lg shadow-md p-6 mb-6 transition-opacity duration-300 ${fetchingLocal() ? 'opacity-0' : 'opacity-100'}`}>
               <div class="flex gap-2 mb-4">
                 <input
                   type="text"
@@ -103,11 +101,9 @@ const App: Component = () => {
               </div>
             </div>
 
-            <div class="text-center text-sm text-gray-500">
+            <div class={`text-center text-sm text-gray-500 transition-opacity duration-300 ${fetchingLocal() ? 'opacity-0' : 'opacity-100'}`}>
               <p>Offline first • Syncs with Google Keep</p>
             </div>
-          </>
-        )}
       </div>
     </div>
   )
