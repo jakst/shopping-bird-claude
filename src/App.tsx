@@ -54,7 +54,8 @@ const App: Component = () => {
         <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">🐦 Shopping Bird</h1>
 
         <div
-          class={`bg-white rounded-lg shadow-md p-6 mb-6 transition-opacity duration-200 ${fetchingLocal() ? "opacity-0" : "opacity-100"}`}
+          class="bg-white rounded-lg shadow-md p-6 mb-6 transition-opacity duration-200 data-[loading=true]:opacity-0 data-[loading=false]:opacity-100"
+          data-loading={fetchingLocal()}
         >
           <div class="flex gap-2 mb-4">
             <input
@@ -104,7 +105,8 @@ const App: Component = () => {
         </div>
 
         <div
-          class={`text-center text-sm text-gray-500 transition-opacity duration-200 ${fetchingLocal() ? "opacity-0" : "opacity-100"}`}
+          class="text-center text-sm text-gray-500 transition-opacity duration-200 data-[loading=true]:opacity-0 data-[loading=false]:opacity-100"
+          data-loading={fetchingLocal()}
         >
           <p>Offline first • Syncs with Google Keep</p>
         </div>
