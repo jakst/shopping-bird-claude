@@ -69,3 +69,8 @@ Configure in `.env`:
 
 - When you can't make changes yourself, attach a copyable git patch at the end with all the needed changes
 - The frontend app does not use cloudflare pages. It is cloudflare workers with static assets. See docs for integrating with vite here https://developers.cloudflare.com/workers/vite-plugin/
+
+### Code Style Guidelines
+
+- **Data Attributes for Styling**: Don't use conditional expressions when applying Tailwind classes. Instead, add a `data-` attribute to the HTML element and target that for styling using Tailwind's data attribute selectors (e.g., `data-[state=open]:bg-blue-500`)
+- **Inline JSX Data**: Don't create wrapper functions for rendered data. Inline the logic directly in JSX expressions

@@ -8,22 +8,13 @@ export const ConnectionStatus: Component = () => {
   // but our client has a more specific schema type
   const { status } = useConnectionStatus(client as unknown as TriplitClient)
 
-  const getStatusIcon = () => {
-    return status() === "OPEN" ? "🟢" : "🔴"
-  }
-
-  const getStatusText = () => {
-    return status() === "OPEN" ? "Online" : "Offline"
-  }
-
-  const getStatusColor = () => {
-    return status() === "OPEN" ? "text-green-600" : "text-red-600"
-  }
-
   return (
-    <div class={`flex items-center gap-1 text-xs ${getStatusColor()}`}>
-      <span class="text-xs">{getStatusIcon()}</span>
-      <span>{getStatusText()}</span>
+    <div
+      class="flex items-center gap-1 text-xs data-[online=true]:text-green-600 data-[online=false]:text-red-600"
+      data-online={status() === "OPEN"}
+    >
+      <span class="text-xs">{status() === "OPEN" ? "🟢" : "🔴"}</span>
+      <span>{status() === "OPEN" ? "Online" : "Offline"}</span>
     </div>
   )
 }
